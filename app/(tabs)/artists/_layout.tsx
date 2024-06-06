@@ -15,7 +15,7 @@ export default function RootLayout(){
       <Stack>
       <Stack.Screen name="index" options={{
         ...StackScreenWithSearchBar,
-        headerTitle:'Songs',
+        headerTitle:'Artists',
       }}/>
 
     </Stack>

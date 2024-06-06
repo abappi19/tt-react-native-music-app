@@ -1,12 +1,19 @@
+import TrackList from "@/components/track-list";
+import { screenPadding } from "@/constants/tokens";
 import { defaultStyles } from "@/styles";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+
 
 export default function Index() {
   return (
     <View
     style={defaultStyles.container}
     >
-      <Text style={defaultStyles.text}>This is song screen</Text>
+      <ScrollView 
+      contentInsetAdjustmentBehavior="automatic"
+      style={{paddingHorizontal:screenPadding.horizontal}}>
+        <TrackList/>
+      </ScrollView>
     </View>
   );
 }

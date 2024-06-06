@@ -21,17 +21,21 @@ const App = ()=>{
 const RootLayout  = () => {
 
   return (
-    <Tabs screenOptions={{
-      tabBarActiveTintColor:colors.primary,
-      tabBarLabelStyle:{
-        fontSize:fontSize.xs,
-        fontWeight:'500',
-        color: '#888'
-
-      },
+    <Tabs 
+    screenOptions={{
       tabBarActiveBackgroundColor:'#000',
-      tabBarInactiveBackgroundColor:'#333'
-    }}>
+      tabBarInactiveBackgroundColor:'#333',
+      tabBarActiveTintColor: colors.primary,
+      tabBarLabelStyle: {
+        fontSize: fontSize.xs,
+        fontWeight: '500',
+      },
+      headerShown: false,
+      tabBarStyle: {
+        borderTopWidth: 0,
+      },
+    }}
+>
     <Tabs.Screen name="favorite" options={{
       title:'Favorite',
       headerShown:false,
