@@ -1,3 +1,4 @@
+import CollapsedPlayerView from "@/components/collapsed-player-view";
 import TrackList from "@/components/track-list";
 import { screenPadding } from "@/constants/tokens";
 import { defaultStyles } from "@/styles";
@@ -11,9 +12,12 @@ export default function Index() {
     >
       <ScrollView 
       contentInsetAdjustmentBehavior="automatic"
-      style={{paddingHorizontal:screenPadding.horizontal}}>
+      style={{paddingHorizontal:screenPadding.horizontal, marginBottom:24}}>
         <TrackList/>
       </ScrollView>
+      
+      <CollapsedPlayerView/>
+
     </View>
   );
 }
