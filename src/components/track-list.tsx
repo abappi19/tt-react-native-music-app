@@ -1,6 +1,10 @@
 import { DevSettings, FlatList, FlatListProps, Text, View } from "react-native";
 import TrackListItem from "./track-list-item";
-import TrackPlayer, { Track, useActiveTrack, useIsPlaying } from "react-native-track-player";
+import TrackPlayer, {
+  Track,
+  useActiveTrack,
+  useIsPlaying,
+} from "react-native-track-player";
 import { defaultStyles } from "@/styles";
 import { Image } from "expo-image";
 import { unknownTrackImageUri } from "@/constants/images";
@@ -14,10 +18,12 @@ export default function TrackList({
   ...flatlistProps
 }: TrackListProps) {
   const { playing } = useIsPlaying();
+  const activeTrack = useActiveTrack();
 
   const handleTrackSelect = async (track: Track) => {
     await TrackPlayer.load(track);
     if (!playing) TrackPlayer.play();
+    else if (track.url === activeTrack?.url) TrackPlayer.pause();
   };
 
   return (

@@ -1,6 +1,6 @@
 import { unknownTrackImageUri } from "@/constants/images";
 import { colors, fontSize } from "@/constants/tokens";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Text, TouchableHighlight, View } from "react-native";
 import LoaderKit from "react-native-loader-kit";
@@ -32,7 +32,7 @@ export default function TrackListItem({
 
   return (
     <TouchableHighlight
-      disabled={isActive}
+    //   disabled={isActive}
       onPress={() => {
         onTrackSelected(item);
       }}
@@ -57,20 +57,32 @@ export default function TrackListItem({
               uri: item.artwork ?? unknownTrackImageUri,
             }}
           />
-          {isActive && playing && (
-            <LoaderKit
-              style={{
-                width: 30,
-                height: 30,
+          {isActive &&
+            (playing ? (
+              <LoaderKit
+                style={{
+                  width: 30,
+                  height: 30,
 
-                position: "absolute",
-                top: 10,
-                left: 10,
-              }}
-              name={"LineScaleParty"} // Optional: see list of animations below
-              color={"white"}
-            />
-          )}
+                  position: "absolute",
+                  top: 10,
+                  left: 10,
+                }}
+                name={"LineScaleParty"} // Optional: see list of animations below
+                color={"white"}
+              />
+            ) : (
+              <Ionicons
+                name="play"
+                style={{
+                  position: "absolute",
+                  top: 14,
+                  left: 14,
+                }}
+                size={26}
+                color={colors.icon}
+              />
+            ))}
         </View>
         <View
           style={{
