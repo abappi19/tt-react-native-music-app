@@ -1,5 +1,6 @@
 import { FlatList, FlatListProps, View } from "react-native";
 import TrackListItem from "./track-list-item";
+import TrackPlayer, { Track } from "react-native-track-player";
 
 export type TrackListProps = Partial<FlatListProps<unknown>> & {
   tracks: any[];
@@ -9,6 +10,10 @@ export default function TrackList({
   tracks,
   ...flatlistProps
 }: TrackListProps) {
+  const handleTrackSelect = async (track: Track) => {
+    await TrackPlayer.load(track);
+  };
+
   return (
     <FlatList
       data={tracks}
@@ -34,7 +39,14 @@ export default function TrackList({
         ></View>
       )}
       renderItem={({ item, index }) => {
-        return <TrackListItem index={index} item={item as any} key={index} />;
+        return (
+          <TrackListItem
+            index={index}
+            item={item as any}
+            key={index}
+            onTrackSelected={handleTrackSelect}
+          />
+        );
       }}
       {...flatlistProps}
     />

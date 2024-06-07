@@ -1,14 +1,32 @@
-import 'react-native-gesture-handler';
-import { NavigationContainer } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { playbackService } from "@/constants/playback-service";
+import { useLogTrackPlayerState } from "@/hooks/useLogTrackPlayerState";
+import { useSetupTrackPlayer } from "@/hooks/useSetupTrackPlayer";
+import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useCallback } from "react";
+import "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import TrackPlayer from "react-native-track-player";
+
+SplashScreen.preventAutoHideAsync();
+
+TrackPlayer.registerPlaybackService(() => playbackService);
 
 const App = () => {
+  const handleTrackPlayerLoaded = useCallback(() => {
+    SplashScreen.hideAsync();
+  }, []);
+
+  useSetupTrackPlayer({
+    onLoad: handleTrackPlayerLoaded,
+  });
+
+  useLogTrackPlayerState();
+
   return (
     // <NavigationContainer>
-      <SafeAreaProvider>
+    <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <RootLayout />
 
@@ -31,13 +49,5 @@ const RootLayout = () => {
     </Stack>
   );
 };
-
-// export default function RootLayout2() {
-//   return (
-//     <Stack>
-//       <Stack.Screen name="index" />
-//     </Stack>
-//   );
-// }
 
 export default App;
