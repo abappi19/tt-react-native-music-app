@@ -1,6 +1,7 @@
-import { FlatList, FlatListProps, View } from "react-native";
+import { DevSettings, FlatList, FlatListProps, Text, View } from "react-native";
 import TrackListItem from "./track-list-item";
-import TrackPlayer, { Track } from "react-native-track-player";
+import TrackPlayer, { Track, useIsPlaying } from "react-native-track-player";
+import { defaultStyles } from "@/styles";
 
 export type TrackListProps = Partial<FlatListProps<unknown>> & {
   tracks: any[];
@@ -10,8 +11,11 @@ export default function TrackList({
   tracks,
   ...flatlistProps
 }: TrackListProps) {
+  const { playing } = useIsPlaying();
+
   const handleTrackSelect = async (track: Track) => {
     await TrackPlayer.load(track);
+    if (!playing) TrackPlayer.play();
   };
 
   return (
@@ -38,6 +42,19 @@ export default function TrackList({
           }}
         ></View>
       )}
+      ListEmptyComponent={() => {
+        return (
+          <View
+            style={{
+              ...defaultStyles.container,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Text style={defaultStyles.text}>No Songs found!</Text>
+          </View>
+        );
+      }}
       renderItem={({ item, index }) => {
         return (
           <TrackListItem

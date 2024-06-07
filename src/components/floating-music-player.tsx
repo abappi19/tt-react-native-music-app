@@ -6,14 +6,17 @@ import { useActiveTrack } from "react-native-track-player";
 import NextButton from "./floating-music-player/next-button";
 import PlayPauseButton from "./floating-music-player/play-pause-button";
 import { unknownTrackImageUri } from "@/constants/images";
+import PreviousButton from "./floating-music-player/previous.button";
+import useLastActiveTrack from "@/hooks/useLastActiveTrack";
 
 export default function FloatingMusicPlayer() {
-  let activeTrack = useActiveTrack();
+  const activeTrack = useActiveTrack();
+  const lastActiveTrack = useLastActiveTrack();
 
-//   activeTrack = library[1];
+  //   displayTrack = library[1];
+  const displayTrack = activeTrack || lastActiveTrack;
 
-
-  if (!activeTrack) return null;
+  if (!displayTrack) return null;
 
   return (
     <View
@@ -43,7 +46,7 @@ export default function FloatingMusicPlayer() {
             borderRadius: 8,
           }}
           source={{
-            uri: activeTrack.artwork ?? unknownTrackImageUri,
+            uri: displayTrack.artwork ?? unknownTrackImageUri,
           }}
         />
 
@@ -73,14 +76,14 @@ export default function FloatingMusicPlayer() {
                 // maxWidth: "90%",
               }}
             >
-              {activeTrack?.title}
+              {displayTrack?.title}
             </Text>
 
             {/* <Text style={{ color: "#ddd", fontSize: fontSize.sm }}>
-              {activeTrack?.artist}
+              {displayTrack?.artist}
             </Text> */}
           </View>
-
+          <PreviousButton />
           <PlayPauseButton />
           <NextButton />
         </View>
