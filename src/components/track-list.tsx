@@ -1,13 +1,17 @@
-import songData from "@/assets/data/library.json";
 import { FlatList, FlatListProps, View } from "react-native";
 import TrackListItem from "./track-list-item";
 
-export type TrackListProps = Partial<FlatListProps<unknown>>;
+export type TrackListProps = Partial<FlatListProps<unknown>> & {
+  tracks: any[];
+};
 
-export default function TrackList({ ...flatlistProps }: TrackListProps) {
+export default function TrackList({
+  tracks,
+  ...flatlistProps
+}: TrackListProps) {
   return (
     <FlatList
-      data={songData}
+      data={tracks}
       ItemSeparatorComponent={() => (
         <View
           style={{
