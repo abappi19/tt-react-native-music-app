@@ -8,6 +8,7 @@ import PlayPauseButton from "./floating-music-player/play-pause-button";
 import { unknownTrackImageUri } from "@/constants/images";
 import PreviousButton from "./floating-music-player/previous.button";
 import useLastActiveTrack from "@/hooks/useLastActiveTrack";
+import { MovingText } from "./floating-music-player/moving-text";
 
 export default function FloatingMusicPlayer() {
   const activeTrack = useActiveTrack();
@@ -64,20 +65,19 @@ export default function FloatingMusicPlayer() {
           <View
             style={{
               flex: 1,
+              overflow: "hidden",
             }}
           >
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
+            <MovingText
               style={{
                 fontWeight: "bold",
                 color: "white",
                 fontSize: fontSize.sm,
                 // maxWidth: "90%",
               }}
-            >
-              {displayTrack?.title}
-            </Text>
+              animationThreshold={10}
+              text={displayTrack?.title || ""}
+            />
 
             {/* <Text style={{ color: "#ddd", fontSize: fontSize.sm }}>
               {displayTrack?.artist}
