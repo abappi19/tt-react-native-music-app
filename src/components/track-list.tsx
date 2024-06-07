@@ -1,7 +1,9 @@
 import { DevSettings, FlatList, FlatListProps, Text, View } from "react-native";
 import TrackListItem from "./track-list-item";
-import TrackPlayer, { Track, useIsPlaying } from "react-native-track-player";
+import TrackPlayer, { Track, useActiveTrack, useIsPlaying } from "react-native-track-player";
 import { defaultStyles } from "@/styles";
+import { Image } from "expo-image";
+import { unknownTrackImageUri } from "@/constants/images";
 
 export type TrackListProps = Partial<FlatListProps<unknown>> & {
   tracks: any[];
@@ -49,9 +51,19 @@ export default function TrackList({
               ...defaultStyles.container,
               alignItems: "center",
               justifyContent: "center",
+              gap: 5,
             }}
           >
             <Text style={defaultStyles.text}>No Songs found!</Text>
+            <Image
+              source={{
+                uri: unknownTrackImageUri,
+              }}
+              style={{
+                height: 160,
+                width: 160,
+              }}
+            />
           </View>
         );
       }}

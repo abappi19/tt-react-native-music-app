@@ -1,8 +1,11 @@
 import { unknownTrackImageUri } from "@/constants/images";
 import { colors, fontSize } from "@/constants/tokens";
+import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { Text, TouchableHighlight, View } from "react-native";
-import { Track } from "react-native-track-player";
+import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { Track, useActiveTrack } from "react-native-track-player";
+import { StopPropagation } from "./utils/stop-propagation";
+import { TrackShortcutsMenu } from "./track-shortcut-menu";
 
 type PropsType = {
   item: {
@@ -21,10 +24,13 @@ export default function TrackListItem({
   index,
   onTrackSelected,
 }: PropsType) {
-  const isActive = false;
+  const activeTrack = useActiveTrack();
+
+  const isActive = activeTrack?.title == item.title;
 
   return (
     <TouchableHighlight
+      disabled={isActive}
       onPress={() => {
         onTrackSelected(item);
       }}
@@ -56,7 +62,11 @@ export default function TrackListItem({
             justifyContent: "space-between",
           }}
         >
-          <View>
+          <View
+            style={{
+              paddingHorizontal: 8,
+            }}
+          >
             <Text
               numberOfLines={1}
               ellipsizeMode="tail"
@@ -67,20 +77,26 @@ export default function TrackListItem({
                 fontSize: fontSize.base,
               }}
             >
-              {" "}
-              {item.title}{" "}
+              {item.title}
             </Text>
             {item.artist && (
-              <Text style={{ color: "#ddd", fontSize: fontSize.sm }}>
-                {" "}
-                {item.artist}{" "}
+              <Text
+                style={{
+                  color: "#ddd",
+                  fontSize: fontSize.sm,
+                  opacity: isActive ? 0.6 : 1,
+                }}
+              >
+                {item.artist}
               </Text>
             )}
           </View>
 
-          {/* <TouchableOpacity>
-                           <Ionicons name='heart' size={22} color="white"/>
-                       </TouchableOpacity> */}
+          <StopPropagation>
+            <TrackShortcutsMenu track={item}>
+              <MaterialIcons name="more-horiz" size={22} color="white" />
+            </TrackShortcutsMenu>
+          </StopPropagation>
         </View>
       </View>
     </TouchableHighlight>

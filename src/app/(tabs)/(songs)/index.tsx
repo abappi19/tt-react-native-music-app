@@ -1,7 +1,8 @@
-import library from "@/assets/data/library.json";
+// import library from "@/assets/data/library.json";
 import SearchInput from "@/components/search-input";
 import TrackList from "@/components/track-list";
 import { screenPadding } from "@/constants/tokens";
+import { useTracks } from "@/store/library";
 import { defaultStyles } from "@/styles";
 import { useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
@@ -9,15 +10,17 @@ import { ScrollView, View } from "react-native";
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
 
+  const tracks = useTracks();
+
   const filteredLibray = useMemo(() => {
-    if (!searchQuery) return library;
+    if (!searchQuery) return tracks;
 
     const msearch = searchQuery.toLowerCase().trim();
 
-    return library.filter((item) =>
-      item.title.toLowerCase().trim().includes(msearch)
+    return tracks.filter((item) =>
+      item.title?.toLowerCase().trim().includes(msearch)
     );
-  }, [searchQuery, library]);
+  }, [searchQuery, tracks]);
 
   return (
     <View style={defaultStyles.container}>
