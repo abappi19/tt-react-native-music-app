@@ -39,7 +39,7 @@ export default function FavoriteScreen() {
           />
 
           <TrackList
-            queueId="songs"
+            queueId="favorites"
             tracks={filteredLibray}
             scrollEnabled={false}
           />

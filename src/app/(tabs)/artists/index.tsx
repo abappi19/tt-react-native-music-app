@@ -40,7 +40,6 @@ export default function ArtistsScreen() {
           />
 
           <ArtistList
-            queueId="songs"
             artists={filteredArtists}
             scrollEnabled={false}
           />

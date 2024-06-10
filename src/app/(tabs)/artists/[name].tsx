@@ -29,7 +29,7 @@ const ArtistDetailScreen = () => {
           marginBottom: 54,
         }}
       >
-        <ArtistTrackList queueId={`${artist.name}-tracks`} artist={artist} />
+        <ArtistTrackList queueId={`artist-${artist.name}`} artist={artist} />
       </ScrollView>
     </View>
   );

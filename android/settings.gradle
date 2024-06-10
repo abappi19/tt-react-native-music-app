@@ -1,4 +1,4 @@
-rootProject.name = 'music-app'
+rootProject.name = 'Music App'
 
 dependencyResolutionManagement {
   versionCatalogs {

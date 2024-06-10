@@ -31,7 +31,7 @@ const ArtistDetailScreen = () => {
         }}
       >
         <PlaylistTrackList
-          queueId={`${playlist.name}-tracks`}
+          queueId={`playlist-${playlist.name}`}
           playlist={playlist}
         />
       </ScrollView>

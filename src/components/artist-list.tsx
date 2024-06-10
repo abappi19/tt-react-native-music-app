@@ -7,12 +7,10 @@ import ArtistListItem from "./artist-list-item";
 import { Link, useRouter } from "expo-router";
 
 export type TrackListProps = Partial<FlatListProps<unknown>> & {
-  queueId: string;
   artists: Artist[];
 };
 
 export default function ArtistList({
-  queueId,
   artists,
   ...flatlistProps
 }: TrackListProps) {
