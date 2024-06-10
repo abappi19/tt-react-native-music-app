@@ -1,4 +1,11 @@
-import { DevSettings, FlatList, FlatListProps, Text, View } from "react-native";
+import {
+  DevSettings,
+  FlatList,
+  FlatListProps,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import TrackListItem from "./track-list-item";
 import TrackPlayer, {
   Track,
@@ -8,6 +15,8 @@ import TrackPlayer, {
 import { defaultStyles } from "@/styles";
 import { Image } from "expo-image";
 import { unknownTrackImageUri } from "@/constants/images";
+import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/constants/tokens";
 
 export type TrackListProps = Partial<FlatListProps<unknown>> & {
   tracks: any[];
@@ -21,7 +30,11 @@ export default function TrackList({
   const activeTrack = useActiveTrack();
 
   const handleTrackSelect = async (track: Track) => {
+
     await TrackPlayer.load(track);
+    // const currentTrackIndex
+    
+    
     if (!playing) TrackPlayer.play();
     else if (track.url === activeTrack?.url) TrackPlayer.pause();
   };
@@ -46,9 +59,54 @@ export default function TrackList({
       ListHeaderComponent={() => (
         <View
           style={{
-            padding: 8,
+            paddingTop: 4,
+            paddingBottom: 12,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+            gap: 1,
           }}
-        ></View>
+        >
+          <TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 5,
+                backgroundColor: "#DDDDDD38",
+                borderRadius: 8,
+                paddingVertical: 6,
+                paddingHorizontal: 12,
+              }}
+            >
+              <Ionicons name="play" size={22} color={colors.primary} />
+              <Text style={{ fontWeight: "bold", color: colors.primary }}>
+                Play
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 5,
+                backgroundColor: "#DDDDDD38",
+                borderRadius: 8,
+                paddingVertical: 6,
+                paddingHorizontal: 12,
+              }}
+            >
+              <Ionicons name="shuffle" size={22} color={colors.primary} />
+              <Text style={{ fontWeight: "bold", color: colors.primary }}>
+                Shuffle
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       )}
       ListEmptyComponent={() => {
         return (

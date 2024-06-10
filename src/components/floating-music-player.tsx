@@ -1,7 +1,7 @@
 import library from "@/assets/data/library.json";
 import { fontSize } from "@/constants/tokens";
 import { Image } from "expo-image";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useActiveTrack } from "react-native-track-player";
 import NextButton from "./floating-music-player/next-button";
 import PlayPauseButton from "./floating-music-player/play-pause-button";
@@ -9,6 +9,7 @@ import { unknownTrackImageUri } from "@/constants/images";
 import PreviousButton from "./floating-music-player/previous.button";
 import useLastActiveTrack from "@/hooks/useLastActiveTrack";
 import { MovingText } from "./floating-music-player/moving-text";
+import { router } from "expo-router";
 
 export default function FloatingMusicPlayer() {
   const activeTrack = useActiveTrack();
@@ -17,10 +18,14 @@ export default function FloatingMusicPlayer() {
   //   displayTrack = library[1];
   const displayTrack = activeTrack || lastActiveTrack;
 
+  const handleOnPress = () => {
+    router.navigate("/player");
+  };
+
   if (!displayTrack) return null;
 
   return (
-    <View
+    <TouchableOpacity
       style={{
         position: "absolute",
         bottom: 60,
@@ -32,6 +37,8 @@ export default function FloatingMusicPlayer() {
         borderColor: "#80808065",
         borderRadius: 16,
       }}
+      activeOpacity={0.9}
+      onPress={handleOnPress}
     >
       <View
         style={{
@@ -83,11 +90,11 @@ export default function FloatingMusicPlayer() {
               {displayTrack?.artist}
             </Text> */}
           </View>
-          <PreviousButton />
+          {/* <PreviousButton /> */}
           <PlayPauseButton />
           <NextButton />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
