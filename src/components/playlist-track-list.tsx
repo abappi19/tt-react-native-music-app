@@ -1,33 +1,36 @@
 import {
-  DevSettings,
+  unknownAtristsImageUri,
+  unknownTrackImageUri,
+} from "@/constants/images";
+import { colors, fontSize } from "@/constants/tokens";
+import { Artist, Playlist } from "@/helper/types";
+import { useQueue } from "@/store/queue";
+import { defaultStyles } from "@/styles";
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
+import { useRef } from "react";
+import {
   FlatList,
   FlatListProps,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import TrackListItem from "./track-list-item";
 import TrackPlayer, {
   Track,
   useActiveTrack,
   useIsPlaying,
 } from "react-native-track-player";
-import { defaultStyles } from "@/styles";
-import { Image } from "expo-image";
-import { unknownTrackImageUri } from "@/constants/images";
-import { Ionicons } from "@expo/vector-icons";
-import { colors } from "@/constants/tokens";
-import { useQueue } from "@/store/queue";
-import { useRef } from "react";
+import TrackListItem from "./track-list-item";
 
 export type TrackListProps = Partial<FlatListProps<unknown>> & {
   queueId: string;
-  tracks: any[];
+  playlist: Playlist;
 };
 
-export default function TrackList({
+export default function PlaylistTrackList({
   queueId,
-  tracks,
+  playlist,
   ...flatlistProps
 }: TrackListProps) {
   const { playing } = useIsPlaying();
@@ -35,6 +38,8 @@ export default function TrackList({
 
   const { activeQueueId, setActiveQueueId } = useQueue();
   const queueOffset = useRef(0);
+
+  const tracks = playlist.tracks;
 
   const handleTrackSelect = async (track: Track) => {
     const currentTrackIndex = tracks.findIndex(
@@ -112,61 +117,95 @@ export default function TrackList({
       ListHeaderComponent={() => (
         <View
           style={{
-            paddingTop: 4,
-            paddingBottom: 12,
-            flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-around",
-            gap: 12,
           }}
         >
-          <TouchableOpacity
-            onPress={handlePlayAll}
+          <Image
+            cachePolicy={"memory-disk"}
+            source={{
+              uri: playlist.artworkPreview || unknownTrackImageUri,
+            }}
             style={{
-              flex: 1,
+              width: "80%",
+              // height: 200,
+              aspectRatio: 1,
+              borderRadius: 8,
+            }}
+          />
+
+          <Text
+            style={[
+              defaultStyles.text,
+              {
+                fontSize: fontSize.lg,
+                paddingVertical: 4,
+              },
+            ]}
+          >
+            {playlist.name}
+          </Text>
+
+          <View
+            style={{
+              paddingTop: 12,
+              paddingBottom: 12,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-around",
+              gap: 12,
+              width: "100%",
             }}
           >
-            <View
+            <TouchableOpacity
+              onPress={handlePlayAll}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 5,
-                backgroundColor: "#DDDDDD38",
-                borderRadius: 8,
-                paddingVertical: 6,
-                paddingHorizontal: 12,
+                flex: 1,
               }}
             >
-              <Ionicons name="play" size={22} color={colors.primary} />
-              <Text style={{ fontWeight: "bold", color: colors.primary }}>
-                Play
-              </Text>
-            </View>
-          </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 5,
+                  backgroundColor: "#DDDDDD38",
+                  borderRadius: 8,
+                  paddingVertical: 6,
+                  paddingHorizontal: 12,
+                }}
+              >
+                <Ionicons name="play" size={22} color={colors.primary} />
+                <Text style={{ fontWeight: "bold", color: colors.primary }}>
+                  Play
+                </Text>
+              </View>
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={handleShufflePlayAll}
-            style={{
-              flex: 1,
-            }}>
-            <View
+            <TouchableOpacity
+              onPress={handleShufflePlayAll}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 5,
-                backgroundColor: "#DDDDDD38",
-                borderRadius: 8,
-                paddingVertical: 6,
-                paddingHorizontal: 12,
+                flex: 1,
               }}
             >
-              <Ionicons name="shuffle" size={22} color={colors.primary} />
-              <Text style={{ fontWeight: "bold", color: colors.primary }}>
-                Shuffle
-              </Text>
-            </View>
-          </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 5,
+                  backgroundColor: "#DDDDDD38",
+                  borderRadius: 8,
+                  paddingVertical: 6,
+                  paddingHorizontal: 12,
+                }}
+              >
+                <Ionicons name="shuffle" size={22} color={colors.primary} />
+                <Text style={{ fontWeight: "bold", color: colors.primary }}>
+                  Shuffle
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
       ListEmptyComponent={() => {
@@ -179,10 +218,10 @@ export default function TrackList({
               gap: 5,
             }}
           >
-            <Text style={defaultStyles.text}>No Songs found!</Text>
+            <Text style={defaultStyles.text}>Artist not found!</Text>
             <Image
               source={{
-                uri: unknownTrackImageUri,
+                uri: unknownAtristsImageUri,
               }}
               style={{
                 height: 160,

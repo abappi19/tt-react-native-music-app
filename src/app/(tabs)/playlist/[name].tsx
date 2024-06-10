@@ -1,23 +1,24 @@
 import ArtistTrackList from "@/components/artist-track-list";
+import PlaylistTrackList from "@/components/playlist-track-list";
 import TrackList from "@/components/track-list";
 import { screenPadding } from "@/constants/tokens";
-import { useArtists } from "@/store/library";
+import { useArtists, usePlaylists } from "@/store/library";
 import { defaultStyles } from "@/styles";
 import { Redirect, useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 const ArtistDetailScreen = () => {
-  const { name: artistName } = useLocalSearchParams<{ name: string }>();
+  const { name: playlistName } = useLocalSearchParams<{ name: string }>();
 
-  const artists = useArtists();
+  const { playlists } = usePlaylists();
 
-  const artist = artists.find((artist) => artist.name === artistName);
+  const playlist = playlists.find((playlist) => playlist.name === playlistName);
 
-  if (!artist) {
-    console.warn(`Artist ${artistName} not found!`);
+  if (!playlist) {
+    console.warn(`Playlist ${playlistName} not found!`);
 
-    return <Redirect href={"/(tabs)/artists"} />;
+    return <Redirect href={"/(tabs)/playlist"} />;
   }
 
   return (
@@ -29,7 +30,10 @@ const ArtistDetailScreen = () => {
           marginBottom: 54,
         }}
       >
-        <ArtistTrackList queueId={`${artist.name}-tracks`} artist={artist} />
+        <PlaylistTrackList
+          queueId={`${playlist.name}-tracks`}
+          playlist={playlist}
+        />
       </ScrollView>
     </View>
   );

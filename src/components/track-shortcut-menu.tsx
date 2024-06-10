@@ -49,9 +49,8 @@ export const TrackShortcutsMenu = ({
         }
       })
       .with("add-to-playlist", () => {
-        // it opens the addToPlaylist modal
         router.push({
-          pathname: "(modals)/addToPlaylist",
+          pathname: "(modals)/add-to-playlist",
           params: { trackUrl: track.url },
         });
       })

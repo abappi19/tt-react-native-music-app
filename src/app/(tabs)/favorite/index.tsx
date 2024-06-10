@@ -34,7 +34,7 @@ export default function FavoriteScreen() {
         <View>
           <SearchInput
             searchOnChange
-            placeholder="Find in Songs"
+            placeholder="Find in Favorites"
             onSearch={setSearchQuery}
           />
 

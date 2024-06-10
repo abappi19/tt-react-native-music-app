@@ -107,7 +107,7 @@ export default function ArtistTrackList({
       ListFooterComponent={() => (
         <View
           style={{
-            padding: 80,
+            padding: 60,
           }}
         ></View>
       )}
@@ -118,6 +118,7 @@ export default function ArtistTrackList({
           }}
         >
           <Image
+            cachePolicy={"memory-disk"}
             source={{
               uri: unknownAtristsImageUri,
             }}
@@ -149,11 +150,16 @@ export default function ArtistTrackList({
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-around",
-              gap: 1,
+              gap: 12,
               width: "100%",
             }}
           >
-            <TouchableOpacity onPress={handlePlayAll}>
+            <TouchableOpacity
+              onPress={handlePlayAll}
+              style={{
+                flex: 1,
+              }}
+            >
               <View
                 style={{
                   flexDirection: "row",
@@ -173,7 +179,12 @@ export default function ArtistTrackList({
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleShufflePlayAll}>
+            <TouchableOpacity
+              onPress={handleShufflePlayAll}
+              style={{
+                flex: 1,
+              }}
+            >
               <View
                 style={{
                   flexDirection: "row",
