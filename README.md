@@ -1,24 +1,21 @@
 # Music App
 
-
 A Simple music app created using `react-native`, `zustand` , `ts-pattern`
 
-
-
-
+[Note: Tested on Android device only]
 
 ## Get started
 
 1. Install dependencies
 
    ```bash
-   npm install
+   yarn
    ```
 
 2. Start the app
 
    ```bash
-    npx expo start
+    npx expo run:android
    ```
 
 In the output, you'll find options to open the app in a
