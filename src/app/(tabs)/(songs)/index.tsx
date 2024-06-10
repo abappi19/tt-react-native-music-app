@@ -38,7 +38,11 @@ export default function Index() {
             onSearch={setSearchQuery}
           />
 
-          <TrackList tracks={filteredLibray} scrollEnabled={false} />
+          <TrackList
+            queueId="songs"
+            tracks={filteredLibray}
+            scrollEnabled={false}
+          />
         </View>
       </ScrollView>
 
