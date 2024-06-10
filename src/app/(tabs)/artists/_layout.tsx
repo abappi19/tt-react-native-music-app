@@ -4,23 +4,29 @@ import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { StackScreenWithSearchBar } from '@/constants/layout';
+import { StackScreenWithSearchBar } from "@/constants/layout";
 
-
-
-export default function RootLayout(){
-
+export default function RootLayout() {
   return (
     <View style={defaultStyles.container}>
       <Stack>
-      <Stack.Screen name="index" options={{
-        ...StackScreenWithSearchBar,
-        headerTitle:'Artists',
-      }}/>
+        <Stack.Screen
+          name="index"
+          options={{
+            ...StackScreenWithSearchBar,
+            headerTitle: "Artists",
+          }}
+        />
 
-    </Stack>
+        <Stack.Screen
+          name="[name]"
+          options={{
+            ...StackScreenWithSearchBar,
+            headerTitle: "",
+            headerBackVisible: true,
+          }}
+        />
+      </Stack>
     </View>
-  )
-
+  );
 }
-

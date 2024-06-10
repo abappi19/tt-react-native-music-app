@@ -89,6 +89,7 @@ export default function TrackListItem({
             flexDirection: "row",
             flex: 1,
             justifyContent: "space-between",
+            alignItems:'center'
           }}
         >
           <View

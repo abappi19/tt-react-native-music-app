@@ -10,7 +10,7 @@ import { ScrollView, View } from "react-native";
 export default function FavoriteScreen() {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const {favorites, toggleTrackFavorite} = useFavorites();
+  const { favorites } = useFavorites();
 
   const filteredLibray = useMemo(() => {
     if (!searchQuery) return favorites;
