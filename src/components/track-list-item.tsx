@@ -3,7 +3,6 @@ import { colors, fontSize } from "@/constants/tokens";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Text, TouchableHighlight, View } from "react-native";
-import LoaderKit from "react-native-loader-kit";
 import { Track, useActiveTrack, useIsPlaying } from "react-native-track-player";
 import { TrackShortcutsMenu } from "./track-shortcut-menu";
 import { StopPropagation } from "./utils/stop-propagation";
@@ -28,11 +27,11 @@ export default function TrackListItem({
   const activeTrack = useActiveTrack();
   const { playing } = useIsPlaying();
 
-  const isActive = activeTrack?.title == item.title;
+  const isActive = activeTrack?.title === item.title;
 
   return (
     <TouchableHighlight
-    //   disabled={isActive}
+      //   disabled={isActive}
       onPress={() => {
         onTrackSelected(item);
       }}
@@ -59,7 +58,8 @@ export default function TrackListItem({
           />
           {isActive &&
             (playing ? (
-              <LoaderKit
+              <Image
+                source={require("@/assets/images/anim/playing.gif")}
                 style={{
                   width: 30,
                   height: 30,
@@ -68,8 +68,8 @@ export default function TrackListItem({
                   top: 10,
                   left: 10,
                 }}
-                name={"LineScaleParty"} // Optional: see list of animations below
-                color={"white"}
+                // name={"LineScaleParty"} // Optional: see list of animations below
+                // color={"white"}
               />
             ) : (
               <Ionicons
@@ -89,7 +89,7 @@ export default function TrackListItem({
             flexDirection: "row",
             flex: 1,
             justifyContent: "space-between",
-            alignItems:'center'
+            alignItems: "center",
           }}
         >
           <View

@@ -6,7 +6,6 @@ import { colors, fontSize } from "@/constants/tokens";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Text, TouchableHighlight, View } from "react-native";
-import LoaderKit from "react-native-loader-kit";
 import { Track, useActiveTrack, useIsPlaying } from "react-native-track-player";
 import { TrackShortcutsMenu } from "./track-shortcut-menu";
 import { StopPropagation } from "./utils/stop-propagation";
